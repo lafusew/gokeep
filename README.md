@@ -14,8 +14,8 @@ Credentials cmd list:
 
 - new
 - delete
-- readAll (listing)
-- read
+- find
+- findAll
 - update
 
 Application cmd list:
