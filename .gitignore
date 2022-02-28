@@ -1,0 +1,5 @@
+## Local credential storage
+/data/*.db
+
+## Bin
+gokeep
