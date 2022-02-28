@@ -1,17 +1,23 @@
-package cmd
+package prompt
 
 import (
 	"errors"
 	"fmt"
 
 	"github.com/lafusew/gokeep/data"
+
 	"github.com/manifoldco/promptui"
 )
+
+type PromptContent struct {
+	ErrorMsg string
+	Label string
+}
 
 func PromptGetInput(pc PromptContent) (string, error) {
 	validate := func(input string) error {
 		if len(input) <= 0 {
-			return errors.New(pc.errorMsg)
+			return errors.New(pc.ErrorMsg)
 		}
 
 		return nil
@@ -25,7 +31,7 @@ func PromptGetInput(pc PromptContent) (string, error) {
 	}
 
 	prompt := promptui.Prompt{
-		Label: pc.label,
+		Label: pc.Label,
 		Templates: templates,
 		Validate: validate,
 	}

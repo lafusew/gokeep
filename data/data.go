@@ -7,8 +7,6 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
-var db *sql.DB
-
 type Cred struct {
 	id int
 	domain string
@@ -20,6 +18,16 @@ type CredID struct {
 	Id int
 	Domain string
 }
+
+type Column string
+
+const (
+	Password Column = "password"
+	Username Column = "username"
+	Domain Column = "domain"
+)
+
+var db *sql.DB
 
 func OpenDatabase() error {
 	var err error
@@ -111,7 +119,7 @@ func DeleteCred(credId CredID) {
 	log.Printf("Credentials for %s has been correctly deleted", credId.Domain)
 }
 
-func FindById(id int) Cred {
+func FindCredById(id int) Cred {
 	findCredSql := `SELECT domain, password, username FROM credentials WHERE id = ?`
 
 	var cred Cred
@@ -122,6 +130,10 @@ func FindById(id int) Cred {
 	}
 	
 	return cred
+}
+
+func UpdateCred(id int, fields []Column) {
+	log.Print("ok")
 }
 
 

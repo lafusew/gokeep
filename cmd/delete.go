@@ -8,6 +8,7 @@ import (
 	"fmt"
 
 	"github.com/lafusew/gokeep/data"
+	"github.com/lafusew/gokeep/prompt"
 	"github.com/spf13/cobra"
 )
 
@@ -36,12 +37,12 @@ func init() {
 }
 
 func deleteCred() {
-	domainPromptContent := PromptContent{
-		"This can't be empty",
-		"Name of the creds you want to delete:",
+	domainPromptContent := prompt.PromptContent{
+		ErrorMsg: "This can't be empty",
+		Label: "Name of the creds you want to delete:",
 	}
 
-	domain, err := PromptGetInput(domainPromptContent)
+	domain, err := prompt.PromptGetInput(domainPromptContent)
 
 	if err != nil {
 		return
@@ -54,7 +55,7 @@ func deleteCred() {
 		return
 	}
 
-	res, err := PromptGetSelect(pDomains, "Confirm selection:")
+	res, err := prompt.PromptGetSelect(pDomains, "Confirm selection:")
 
 	if err != nil {
 		return

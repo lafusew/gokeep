@@ -6,6 +6,7 @@ package cmd
 
 import (
 	"github.com/lafusew/gokeep/data"
+	"github.com/lafusew/gokeep/prompt"
 	"github.com/spf13/cobra"
 )
 
@@ -23,44 +24,39 @@ var newCmd = &cobra.Command{
 	},
 }
 
-type PromptContent struct {
-	errorMsg string
-	label string
-}
-
 func init() {
 	credsCmd.AddCommand(newCmd)
 }
 
 func createNewCred() {
-	domainPromptContent := PromptContent{
-		"This can't be empty, please provide a domain name",
-		"Service's name for which you want to store credentials:",
+	domainPromptContent := prompt.PromptContent{
+		ErrorMsg: "This can't be empty, please provide a domain name",
+		Label: "Service's name for which you want to store credentials:",
 	}
 
-	domain, err := PromptGetInput(domainPromptContent)
+	domain, err := prompt.PromptGetInput(domainPromptContent)
 
 	if err != nil {
 		return
 	}
 
-	usernamePromptContent := PromptContent{
-		"This can't be empty, please provide a identifier, it can be anything (mail, phone numbre, username)",
-		"Credentials identifier you use to log in:",
+	usernamePromptContent := prompt.PromptContent{
+		ErrorMsg: "This can't be empty, please provide a identifier, it can be anything (mail, phone numbre, username)",
+		Label: "Credentials identifier you use to log in:",
 	}
 
-	username, err := PromptGetInput(usernamePromptContent)
+	username, err := prompt.PromptGetInput(usernamePromptContent)
 
 	if err != nil {
 		return
 	}
 
-	pwdPromptContent := PromptContent{
-		"This can't be empty, please provide a password",
-		"Password used with this identifier:",
+	pwdPromptContent := prompt.PromptContent{
+		ErrorMsg: "This can't be empty, please provide a password",
+		Label: "Password used with this identifier:",
 	}
 
-	pwd, err := PromptGetInput(pwdPromptContent)
+	pwd, err := prompt.PromptGetInput(pwdPromptContent)
 
 	if err != nil {
 		return
