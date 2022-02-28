@@ -1,5 +1,11 @@
 # Gokeep
 
+Gokeep is a simple implementation of a CLI password manager, written in Go.
+
+This is the first application I write in Go (it's also the first application running outside a Javascript Engine).
+
+If you notice any security issue or bad pratices, please create an issue pointing me the correct/safer solution. 
+
 ## Behavior
 
 `gokeep init` setup the local sqlite database and ask for an encryption password. 
