@@ -15,7 +15,7 @@ import (
 var credsCmd = &cobra.Command{
 	Use:   "creds",
 	Short: "Credentials are stored and accessed through the gokeep creds command",
-	Long: `Credentials are stored and accessed through the gokeep creds command`,
+	Long:  `Credentials are stored and accessed through the gokeep creds command`,
 	Run: func(cmd *cobra.Command, args []string) {
 		run()
 	},
@@ -45,7 +45,7 @@ func run() {
 		createNewCred()
 	case "Delete":
 		deleteCred()
-	case "Read": 
+	case "Read":
 		readCred()
 	}
 

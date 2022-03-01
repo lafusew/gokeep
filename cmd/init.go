@@ -14,7 +14,7 @@ import (
 var initCmd = &cobra.Command{
 	Use:   "init",
 	Short: "Init a new credentials database and table",
-	Long: `Init a new credentials database and table. WIP`,
+	Long:  `Init a new credentials database and table. WIP`,
 	Run: func(cmd *cobra.Command, args []string) {
 		data.CreateCredsTable()
 	},

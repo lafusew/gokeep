@@ -8,14 +8,14 @@ import (
 )
 
 type Cred struct {
-	id int
-	domain string
+	id       int
+	domain   string
 	username string
 	password string
 }
 
 type CredID struct {
-	Id int
+	Id     int
 	Domain string
 }
 
@@ -24,14 +24,14 @@ type Column string
 const (
 	Password Column = "password"
 	Username Column = "username"
-	Domain Column = "domain"
+	Domain   Column = "domain"
 )
 
 var db *sql.DB
 
 func OpenDatabase() error {
 	var err error
-	
+
 	db, err = sql.Open("sqlite3", "./data/gokeep.db")
 
 	if err != nil {
@@ -71,6 +71,7 @@ func InsertCred(domain, username, password string) {
 	defer statement.Close()
 
 	_, err = statement.Exec(domain, username, password)
+	
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -96,7 +97,7 @@ func DeleteCred(credId CredID) {
 	log.Printf("Credentials for %s has been correctly deleted", credId.Domain)
 }
 
-func FindCred(domain string)[]CredID {
+func FindCred(domain string) []CredID {
 	findCredSql := `SELECT * FROM credentials WHERE domain LIKE '%'||?||'%'`
 
 	rows, err := db.Query(findCredSql, domain)
@@ -128,13 +129,10 @@ func FindCredById(id int) Cred {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	
+
 	return cred
 }
 
 func UpdateCred(id int, fields []Column) {
 	log.Print("ok")
 }
-
-
-

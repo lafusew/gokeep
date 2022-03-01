@@ -16,7 +16,7 @@ import (
 var readCmd = &cobra.Command{
 	Use:   "read",
 	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
+	Long:  `A longer description that spans multiple lines and likely contains examples
 and usage of using your command. For example:
 
 Cobra is a CLI library for Go that empowers applications.
@@ -27,17 +27,16 @@ to quickly create a Cobra application.`,
 	},
 }
 
-func readCred() error{
+func readCred() error {
 	domainPromptContent := prompter.PromptContent{
 		ErrorMsg: "This can't be empty, please provide a domain name",
-		Label: "Service's name for which you want to retrieve credentials:",
+		Label:    "Service's name for which you want to retrieve credentials:",
 	}
 	var cred data.CredID
 
 	err := prompter.TwoStepsSelect(domainPromptContent, &cred)
 
 	res := data.FindCredById(cred.Id)
-
 
 	fmt.Println(res)
 

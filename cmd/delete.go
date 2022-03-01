@@ -14,9 +14,9 @@ import (
 
 // deleteCmd represents the delete command
 var deleteCmd = &cobra.Command{
-	Use: "delete",
+	Use:   "delete",
 	Short: "Delete a credential record",
-	Long: `Delete a credential record`,
+	Long:  `Delete a credential record`,
 	Run: func(cmd *cobra.Command, args []string) {
 		deleteCred()
 	},
@@ -29,10 +29,10 @@ func init() {
 func deleteCred() {
 	domainPromptContent := prompter.PromptContent{
 		ErrorMsg: "This can't be empty",
-		Label: "Name of the creds you want to delete:",
+		Label:    "Name of the creds you want to delete:",
 	}
 
-	var cred data.CredID;
+	var cred data.CredID
 
 	err := prompter.TwoStepsSelect(domainPromptContent, &cred)
 
@@ -43,5 +43,3 @@ func deleteCred() {
 
 	data.DeleteCred(cred)
 }
-
-

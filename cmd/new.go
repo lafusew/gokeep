@@ -31,7 +31,7 @@ func init() {
 func createNewCred() {
 	domainPromptContent := prompter.PromptContent{
 		ErrorMsg: "This can't be empty, please provide a domain name",
-		Label: "Service's name for which you want to store credentials:",
+		Label:    "Service's name for which you want to store credentials:",
 	}
 
 	domain, err := prompter.PromptGetInput(domainPromptContent)
@@ -42,7 +42,7 @@ func createNewCred() {
 
 	usernamePromptContent := prompter.PromptContent{
 		ErrorMsg: "This can't be empty, please provide a identifier, it can be anything (mail, phone numbre, username)",
-		Label: "Credentials identifier you use to log in:",
+		Label:    "Credentials identifier you use to log in:",
 	}
 
 	username, err := prompter.PromptGetInput(usernamePromptContent)
@@ -53,7 +53,7 @@ func createNewCred() {
 
 	pwdPromptContent := prompter.PromptContent{
 		ErrorMsg: "This can't be empty, please provide a password",
-		Label: "Password used with this identifier:",
+		Label:    "Password used with this identifier:",
 	}
 
 	pwd, err := prompter.PromptGetInput(pwdPromptContent)
