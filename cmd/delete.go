@@ -1,14 +1,14 @@
 /*
-Copyright © 2022 NAME HERE <EMAIL ADDRESS>
-
+Copyright © 2022 LAFUSEW <antoine.oddoz@protonmail.com>
 */
+
 package cmd
 
 import (
 	"fmt"
 
 	"github.com/lafusew/gokeep/data"
-	"github.com/lafusew/gokeep/prompt"
+	"github.com/lafusew/gokeep/prompter"
 	"github.com/spf13/cobra"
 )
 
@@ -24,44 +24,24 @@ var deleteCmd = &cobra.Command{
 
 func init() {
 	credsCmd.AddCommand(deleteCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// deleteCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// deleteCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
 
 func deleteCred() {
-	domainPromptContent := prompt.PromptContent{
+	domainPromptContent := prompter.PromptContent{
 		ErrorMsg: "This can't be empty",
 		Label: "Name of the creds you want to delete:",
 	}
 
-	domain, err := prompt.PromptGetInput(domainPromptContent)
+	var cred data.CredID;
+
+	err := prompter.TwoStepsSelect(domainPromptContent, &cred)
 
 	if err != nil {
+		fmt.Println(err)
 		return
 	}
 
-	pDomains := data.FindCred(domain)
-
-	if len(pDomains) < 1 {
-		fmt.Println("No credentials found, command cancelled")
-		return
-	}
-
-	res, err := prompt.PromptGetSelect(pDomains, "Confirm selection:")
-
-	if err != nil {
-		return
-	}
-
-	data.DeleteCred(res)
+	data.DeleteCred(cred)
 }
 
 

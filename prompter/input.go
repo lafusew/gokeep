@@ -1,4 +1,4 @@
-package prompt
+package prompter
 
 import (
 	"errors"
@@ -37,11 +37,11 @@ func PromptGetInput(pc PromptContent) (string, error) {
 	}
 
 	result, err := prompt.Run()
+	
 	if err != nil {
 		fmt.Printf("Command cancelled \n%v\n", err)
 	}
 
-	fmt.Printf("Input %s\n", result)
 	return result, err
 }
 
@@ -65,4 +65,29 @@ func PromptGetSelect(options []data.CredID, label string) (data.CredID, error) {
 	}
 
 	return options[atIndx], err
+}
+
+func TwoStepsSelect(promptContent PromptContent, cred *data.CredID) error{
+	domain, err := PromptGetInput(promptContent)
+
+	if err != nil {
+		fmt.Println("No credentials found, command cancelled")
+	}
+
+	pDomains := data.FindCred(domain)
+
+	if len(pDomains) < 1 {
+		err = errors.New("no credentials found, command cancelled")
+		return err
+	}
+
+	res, err := PromptGetSelect(pDomains, "Confirm selection:")
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	*cred = res
+
+	return err
 }
