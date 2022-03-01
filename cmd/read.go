@@ -7,6 +7,8 @@ package cmd
 import (
 	"fmt"
 
+	"github.com/lafusew/gokeep/data"
+	"github.com/lafusew/gokeep/prompter"
 	"github.com/spf13/cobra"
 )
 
@@ -21,8 +23,25 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("read called")
+		readCred()
 	},
+}
+
+func readCred() error{
+	domainPromptContent := prompter.PromptContent{
+		ErrorMsg: "This can't be empty, please provide a domain name",
+		Label: "Service's name for which you want to retrieve credentials:",
+	}
+	var cred data.CredID
+
+	err := prompter.TwoStepsSelect(domainPromptContent, &cred)
+
+	res := data.FindCredById(cred.Id)
+
+
+	fmt.Println(res)
+
+	return err
 }
 
 func init() {
