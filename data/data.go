@@ -78,6 +78,24 @@ func InsertCred(domain, username, password string) {
 	log.Println("New credentials saved successfully")
 }
 
+func DeleteCred(credId CredID) {
+	deleteCredSql := `DELETE FROM credentials WHERE id = ?`
+
+	statement, err := db.Prepare(deleteCredSql)
+
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	_, err = statement.Exec(credId.Id)
+
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	log.Printf("Credentials for %s has been correctly deleted", credId.Domain)
+}
+
 func FindCred(domain string)[]CredID {
 	findCredSql := `SELECT * FROM credentials WHERE domain LIKE '%'||?||'%'`
 
@@ -101,30 +119,12 @@ func FindCred(domain string)[]CredID {
 	return domains
 }
 
-func DeleteCred(credId CredID) {
-	deleteCredSql := `DELETE FROM credentials WHERE id = ?`
-
-	statement, err := db.Prepare(deleteCredSql)
-
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	_, err = statement.Exec(credId.Id)
-
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	log.Printf("Credentials for %s has been correctly deleted", credId.Domain)
-}
-
 func FindCredById(id int) Cred {
 	findCredSql := `SELECT domain, password, username FROM credentials WHERE id = ?`
 
 	var cred Cred
 
-	err := db.QueryRow(findCredSql, id).Scan(&cred.id, &cred.domain, &cred.password, &cred.username)
+	err := db.QueryRow(findCredSql, id).Scan(&cred.domain, &cred.password, &cred.username)
 	if err != nil {
 		log.Fatalln(err)
 	}

@@ -6,7 +6,7 @@ package cmd
 
 import (
 	"github.com/lafusew/gokeep/data"
-	"github.com/lafusew/gokeep/prompt"
+	"github.com/lafusew/gokeep/prompter"
 	"github.com/spf13/cobra"
 )
 
@@ -29,34 +29,34 @@ func init() {
 }
 
 func createNewCred() {
-	domainPromptContent := prompt.PromptContent{
+	domainPromptContent := prompter.PromptContent{
 		ErrorMsg: "This can't be empty, please provide a domain name",
 		Label: "Service's name for which you want to store credentials:",
 	}
 
-	domain, err := prompt.PromptGetInput(domainPromptContent)
+	domain, err := prompter.PromptGetInput(domainPromptContent)
 
 	if err != nil {
 		return
 	}
 
-	usernamePromptContent := prompt.PromptContent{
+	usernamePromptContent := prompter.PromptContent{
 		ErrorMsg: "This can't be empty, please provide a identifier, it can be anything (mail, phone numbre, username)",
 		Label: "Credentials identifier you use to log in:",
 	}
 
-	username, err := prompt.PromptGetInput(usernamePromptContent)
+	username, err := prompter.PromptGetInput(usernamePromptContent)
 
 	if err != nil {
 		return
 	}
 
-	pwdPromptContent := prompt.PromptContent{
+	pwdPromptContent := prompter.PromptContent{
 		ErrorMsg: "This can't be empty, please provide a password",
 		Label: "Password used with this identifier:",
 	}
 
-	pwd, err := prompt.PromptGetInput(pwdPromptContent)
+	pwd, err := prompter.PromptGetInput(pwdPromptContent)
 
 	if err != nil {
 		return
