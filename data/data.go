@@ -2,6 +2,7 @@ package data
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 
 	_ "github.com/mattn/go-sqlite3"
@@ -20,6 +21,7 @@ type CredID struct {
 }
 
 type Column string
+type Value string
 
 const (
 	Password Column = "password"
@@ -153,12 +155,28 @@ func FindCredById(id int) Cred {
 
 	err := db.QueryRow(findCredSql, id).Scan(&cred.domain, &cred.password, &cred.username)
 	if err != nil {
-		log.Fatalln(err)
+		log.Fatalln(err.Error())
 	}
 
 	return cred
 }
 
-func UpdateCred(id int, fields []Column) {
-	log.Print("ok")
+func UpdateCred(id int, field Column, value Value) {
+	setSql := fmt.Sprintf("%s = %q", field, value)
+
+	updateCredSql := fmt.Sprintf(`UPDATE credentials SET %s WHERE id = ?`, setSql)
+
+	statement, err := db.Prepare(updateCredSql)
+
+	if err != nil {
+		log.Fatalln(err.Error())
+	}
+
+	_, err = statement.Exec(id)
+
+	if err != nil {
+		log.Fatalln(err.Error())
+	}
+
+	log.Println("Credentials Updated.")
 }

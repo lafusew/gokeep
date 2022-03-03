@@ -47,6 +47,10 @@ func run() {
 		deleteCred()
 	case "Read":
 		readCred()
+	case "List":
+		readAllCreds()
+	case "Update": 
+		updateCred()
 	}
 
 	run()
