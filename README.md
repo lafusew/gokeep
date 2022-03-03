@@ -39,4 +39,6 @@ You'll also be able to use the 1 command at the time (requiring your master keyw
 
 - [x] Be able to keep the app up and running
 - [ ] Encryption / Decryption 
+- [ ] Add handy flags to all commands (flags tbd)
+- [ ] Refactor cmd and their assiociated method
 - [ ] Static web GUI served on a localhost server
