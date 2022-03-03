@@ -2,7 +2,11 @@
 
 Gokeep is a simple implementation of a CLI password manager, written in Go.
 
-This is the first application I write in Go (it's also the first application running outside a Javascript Engine).
+## ⚠️ Warning ⚠️
+
+Currently the app isn't safe. pwds arent encrypted before storage. 
+This is a naive implementation of the solution and my first application I write in Go (it's also the first application running outside a Javascript Engine).
+Use it for testing purpose only (this might change if I'm able to make a first release).
 
 If you notice any security issue or bad pratices, please create an issue pointing me the correct/safer solution. 
 
@@ -12,7 +16,7 @@ If you notice any security issue or bad pratices, please create an issue pointin
 
 The encryption key should be safely stored by the user. If you forget it, your credentials wont be recoverable as gokeep doesn't store your encryption key.
 
-`gokeep` should start the application. A prompt asking for your password will be dispayed and the app should continue to run after you provided it. 
+`gokeep creds` should start the application. A prompt asking for your password will be dispayed and the app should continue to run after you provided it. 
 
 Once the app is started, we should be able to run command through promptui. 
 
@@ -29,10 +33,10 @@ Application cmd list:
 - stop
 - forget (remove encryption key from memory)
 
+You'll also be able to use the 1 command at the time (requiring your master keyworld for each cmd).
+
 ## Todo 
 
-- [x] CRUD SQL Method mapped to /data public functions
-- [ ] All prompt UI use case abstracted.
-- [ ] Encryption / Decryption
-- [ ] Keep the app up and running (currently shutting down after cmd execution)
+- [x] Be able to keep the app up and running
+- [ ] Encryption / Decryption 
 - [ ] Static web GUI served on a localhost server
