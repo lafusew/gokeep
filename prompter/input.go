@@ -11,7 +11,7 @@ import (
 
 type PromptContent struct {
 	ErrorMsg string
-	Label string
+	Label    string
 }
 
 func PromptGetInput(pc PromptContent) (string, error) {
@@ -24,20 +24,20 @@ func PromptGetInput(pc PromptContent) (string, error) {
 	}
 
 	templates := &promptui.PromptTemplates{
-		Prompt: "{{ . }}",
-		Valid: "{{ . | green }}",
+		Prompt:  "{{ . }}",
+		Valid:   "{{ . | green }}",
 		Invalid: "{{ . | red }}",
 		Success: "{{ . | bold }}",
 	}
 
 	prompt := promptui.Prompt{
-		Label: pc.Label,
+		Label:     pc.Label,
 		Templates: templates,
-		Validate: validate,
+		Validate:  validate,
 	}
 
 	result, err := prompt.Run()
-	
+
 	if err != nil {
 		fmt.Printf("Command cancelled \n%v\n", err)
 	}
@@ -46,13 +46,13 @@ func PromptGetInput(pc PromptContent) (string, error) {
 }
 
 func PromptGetSelect(options []data.CredID, label string) (data.CredID, error) {
-	
+
 	var stringOptions []string
-	for i:= 0; i < len(options); i++ {
+	for i := 0; i < len(options); i++ {
 		option := options[i]
 		stringOptions = append(stringOptions, option.Domain)
 	}
-	
+
 	prompt := promptui.Select{
 		Label: label,
 		Items: stringOptions,
@@ -67,7 +67,7 @@ func PromptGetSelect(options []data.CredID, label string) (data.CredID, error) {
 	return options[atIndx], err
 }
 
-func TwoStepsSelect(promptContent PromptContent, cred *data.CredID) error{
+func TwoStepsSelect(promptContent PromptContent, cred *data.CredID) error {
 	domain, err := PromptGetInput(promptContent)
 
 	if err != nil {

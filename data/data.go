@@ -71,7 +71,7 @@ func InsertCred(domain, username, password string) {
 	defer statement.Close()
 
 	_, err = statement.Exec(domain, username, password)
-	
+
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -118,6 +118,32 @@ func FindCred(domain string) []CredID {
 	}
 
 	return domains
+}
+
+func FindAllCreds() []CredID {
+	findAllCredSql := `SELECT * FROM credentials`
+
+	rows, err := db.Query(findAllCredSql)
+
+	var creds []CredID
+	for rows.Next() {
+		var cred Cred 
+		err := rows.Scan(&cred.id, &cred.domain, &cred.username, &cred.password)
+
+		if err != nil {
+			log.Fatalln(err)
+		}
+
+		creds = append(creds, CredID{cred.id, cred.domain})
+	}
+
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	defer rows.Close()
+
+	return creds
 }
 
 func FindCredById(id int) Cred {
