@@ -7,6 +7,7 @@ package cmd
 import (
 	"log"
 
+	"github.com/lafusew/gokeep/data"
 	"github.com/manifoldco/promptui"
 	"github.com/spf13/cobra"
 )
@@ -41,6 +42,12 @@ func init() {
 }
 
 func run() {
+	mk := data.GetKeyVal()
+	
+	if mk == "" {
+		setKeyPrompt()
+	}
+
 	items := []string{
 		"List",
 		"Create",
