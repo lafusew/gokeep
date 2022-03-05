@@ -9,9 +9,9 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// newCmd represents the new command
-var newCmd = &cobra.Command{
-	Use:   "new",
+// createCmd represents the new command
+var createCmd = &cobra.Command{
+	Use:   "create",
 	Short: "Create a new credential record",
 	Long: `Create s new credential record. 
 	
@@ -19,15 +19,15 @@ var newCmd = &cobra.Command{
 	If you want gokeep to generates a password for you, tbw
 	`,
 	Run: func(cmd *cobra.Command, args []string) {
-		createNewCred()
+		createPrompt()
 	},
 }
 
 func init() {
-	credsCmd.AddCommand(newCmd)
+	rootCmd.AddCommand(createCmd)
 }
 
-func createNewCred() {
+func createPrompt() {
 	domainPromptContent := PromptContent{
 		ErrorMsg: "This can't be empty, please provide a domain name",
 		Label:    "Service's name for which you want to store credentials:",

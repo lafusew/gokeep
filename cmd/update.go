@@ -19,11 +19,11 @@ var updateCmd = &cobra.Command{
 	Short: "Update a credentials record",
 	Long: `Update a credentials record`,
 	Run: func(cmd *cobra.Command, args []string) {
-		updateCred()
+		updatePrompt()
 	},
 }
 
-func updateCred() {
+func updatePrompt() {
 	var cred data.CredID
 
 	err := TwoStepsSelect(
@@ -70,12 +70,12 @@ func updateCred() {
 	}
 
 	if continuation == "yes" {
-		updateCred()
+		updatePrompt()
 	}
 }
 
 func init() {
-	credsCmd.AddCommand(updateCmd)
+	rootCmd.AddCommand(updateCmd)
 
 	// Here you will define your flags and configuration settings.
 

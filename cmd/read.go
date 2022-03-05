@@ -17,11 +17,11 @@ var readCmd = &cobra.Command{
 	Short: "Read a credential record",
 	Long:  `Read a credential record`,
 	Run: func(cmd *cobra.Command, args []string) {
-		readCred()
+		readPrompt()
 	},
 }
 
-func readCred() error {
+func readPrompt() error {
 	domainPromptContent := PromptContent{
 		ErrorMsg: "This can't be empty, please provide a domain name",
 		Label:    "Service's name for which you want to retrieve credentials:",
@@ -37,7 +37,7 @@ func readCred() error {
 	return err
 }
 
-func readAllCreds() error {
+func readAllPrompt() error {
 	creds := data.FindAllCreds()
 
 	cred, err := PromptGetSelect(creds, "Select a credential:")
@@ -54,5 +54,5 @@ func readAllCreds() error {
 }
 
 func init() {
-	credsCmd.AddCommand(readCmd)
+	rootCmd.AddCommand(readCmd)
 }

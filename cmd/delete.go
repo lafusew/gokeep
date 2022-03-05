@@ -18,15 +18,15 @@ var deleteCmd = &cobra.Command{
 	Short: "Delete a credential record",
 	Long:  `Delete a credential record`,
 	Run: func(cmd *cobra.Command, args []string) {
-		deleteCred()
+		deletePrompt()
 	},
 }
 
 func init() {
-	credsCmd.AddCommand(deleteCmd)
+	rootCmd.AddCommand(deleteCmd)
 }
 
-func deleteCred() {
+func deletePrompt() {
 	domainPromptContent := PromptContent{
 		ErrorMsg: "This can't be empty",
 		Label:    "Name of the creds you want to delete:",
