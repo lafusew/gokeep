@@ -37,22 +37,6 @@ func readPrompt() error {
 	return err
 }
 
-func readAllPrompt() error {
-	creds := data.FindAllCreds()
-
-	cred, err := PromptGetSelect(creds, "Select a credential:")
-
-	if err != nil {
-		return err
-	}
-
-	res := data.FindCredById(cred.Id)
-
-	fmt.Println(res)
-
-	return err
-}
-
 func init() {
 	rootCmd.AddCommand(readCmd)
 }
