@@ -42,19 +42,20 @@ func init() {
 }
 
 func run() {
-	mk := data.GetKeyVal()
+	mk := data.GetMK()
 	
 	if mk == "" {
 		setKeyPrompt()
 	}
+	var (
+		l = "List"
+		c = "Create"
+		r = "Read"
+		u = "Update"
+		d = "Delete"
+	)
 
-	items := []string{
-		"List",
-		"Create",
-		"Read",
-		"Update",
-		"Delete",
-	}
+	items := []string{l ,c ,r ,u , d}
 
 	prompt := promptui.Select{
 		Label: "Manage your credentials",
@@ -67,16 +68,18 @@ func run() {
 	}
 
 	switch selected {
-	case "Create":
-		createPrompt()
-	case "Delete":
-		deletePrompt()
-	case "Read":
-		readPrompt()
-	case "List":
+	case l:
 		readAllPrompt()
-	case "Update": 
+	case c:
+		createPrompt()
+	case r:
+		readPrompt()
+		case u: 
 		updatePrompt()
+	case d:
+		deletePrompt()
+	default:
+		readAllPrompt()
 	}
 
 	run()
