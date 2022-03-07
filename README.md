@@ -16,7 +16,7 @@ If you notice any security issue or bad pratices, please create an issue pointin
 
 The encryption key should be safely stored by the user. If you forget it, your credentials wont be recoverable as gokeep doesn't store your encryption key.
 
-`gokeep creds` should start the application. A prompt asking for your password will be dispayed and the app should continue to run after you provided it. 
+`gokeep start` starts the application. A prompt asking for your password will be dispayed and the app should continue to run after you provided it. 
 
 Once the app is started, we should be able to run command through promptui. 
 
