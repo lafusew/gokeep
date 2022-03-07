@@ -56,7 +56,7 @@ func updatePrompt() {
 		log.Fatalln(err.Error())
 	}
 
-	data.UpdateCred(cred.Id, data.Column(field), data.Value(value))
+	data.UpdateCred(cred.Id, field, value)
 
 	prompt = promptui.Select{
 		Label: "Continue to update this creds?",

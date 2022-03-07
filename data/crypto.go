@@ -16,22 +16,22 @@ type Key struct {
 	storedAt time.Time
 }
 
-var MKey = Key{
+var MK = Key{
 	val: "",
 	storedAt: time.Date(2000, 1, 1, 0, 0, 0, 0, time.Local),
 }
 
-func SetMasterKey(key string) {
-	MKey = Key{
+func SetMK(key string) {
+	MK = Key{
 		val: key,
 		storedAt: time.Now(),
 	}
 
-	defer fmt.Println(MKey.val, MKey.storedAt.Unix())
+	defer fmt.Println(MK.val, MK.storedAt.Unix())
 }
 
-func GetKeyVal() string {
-	return MKey.val
+func GetMK() string {
+	return MK.val
 }
 
 func Encrypt(str string, key string) (string, error) {
@@ -43,19 +43,16 @@ func Encrypt(str string, key string) (string, error) {
 	}
 
 	ciph, err := aes.NewCipher(k)
-
 	if err != nil {
 		log.Fatalln(err.Error())
 	}
 
 	gcm, err := cipher.NewGCM(ciph)
-
 	if err != nil {
 		log.Fatalln(err.Error())
 	}
 
 	nonce := make([]byte, gcm.NonceSize())
-
 	if _, err = io.ReadFull(rand.Reader, nonce); err != nil {
 		fmt.Print(err);
 	}
@@ -65,7 +62,9 @@ func Encrypt(str string, key string) (string, error) {
 	return string(e), err
 }
 
-func Decrypt(str []byte, key string) (string, error){
+func Decrypt(str string, key string) (string, error){
+	text := []byte(str)
+
 	k, err := keyTo32byteArr(key)
 	if err != nil {
 		log.Fatalln(err.Error())
@@ -82,11 +81,11 @@ func Decrypt(str []byte, key string) (string, error){
 	}
 
 	nonceSize := gcm.NonceSize()
-	if len(str) < nonceSize {
+	if len(text) < nonceSize {
 		log.Fatalln(err.Error())
 	}
 
-	nonce, encrypted := str[:nonceSize], str[nonceSize:]
+	nonce, encrypted := text[:nonceSize], text[nonceSize:]
 
 	plaintext, err := gcm.Open(nil, nonce, encrypted, nil)
 	if err != nil {
@@ -114,4 +113,19 @@ func keyTo32byteArr(key string) ([]byte, error) {
 	}
 
 	return k, err
+}
+
+func Test() {
+	test, err := Encrypt("test", "test")
+	if err != nil {
+		fmt.Print(err.Error())
+	}
+
+	fmt.Println(test)
+
+	test, err = Decrypt(test, "test")
+	if err != nil {
+		fmt.Print(err.Error())
+	}
+	fmt.Println(test)
 }

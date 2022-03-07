@@ -20,15 +20,6 @@ type CredID struct {
 	Domain string
 }
 
-type Column string
-type Value string
-
-const (
-	Password Column = "password"
-	Username Column = "username"
-	Domain   Column = "domain"
-)
-
 var db *sql.DB
 
 func OpenDatabase() error {
@@ -72,8 +63,17 @@ func InsertCred(domain, username, password string) {
 	}
 	defer statement.Close()
 
-	_, err = statement.Exec(domain, username, password)
+	username, err = Encrypt(username, GetMK())
+	if err != nil {
+		log.Fatalln(err)
+	}
 
+	password, err = Encrypt(password, GetMK())
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	_, err = statement.Exec(domain, password, username)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -158,10 +158,30 @@ func FindCredById(id int) Cred {
 		log.Fatalln(err.Error())
 	}
 
+	cred.username, err = Decrypt(cred.username, GetMK())
+	if err != nil {
+		log.Fatalln(err.Error())
+	}
+
+	cred.password, err = Decrypt(cred.password, GetMK())
+	if err != nil {
+		log.Fatalln(err.Error())
+	}
+
 	return cred
 }
 
-func UpdateCred(id int, field Column, value Value) {
+
+func UpdateCred(id int, field string, value string) {
+	var err error
+
+	if field == "username" || field == "password" {
+		value, err = Encrypt(value, GetMK())
+		if err != nil {
+			fmt.Println(err.Error())
+		}
+	}
+
 	setSql := fmt.Sprintf("%s = %q", field, value)
 
 	updateCredSql := fmt.Sprintf(`UPDATE credentials SET %s WHERE id = ?`, setSql)
@@ -179,4 +199,32 @@ func UpdateCred(id int, field Column, value Value) {
 	}
 
 	log.Println("Credentials Updated.")
+}
+
+func EncryptCred(password, username, key string) (p, u string, err error) {
+	p, err = Encrypt(password, key)
+	if err != nil {
+		return "", "", err
+	}
+
+	u, err = Encrypt(username, key)
+	if err != nil {
+		return "", "", err
+	}
+
+	return
+}
+
+func DecryptCred(password, username, key string) (p, u string, err error) {
+	p, err = Decrypt(password, key)
+	if err != nil {
+		return "", "", err
+	}
+
+	u, err = Decrypt(username, key)
+	if err != nil {
+		return "", "", err
+	}
+
+	return
 }

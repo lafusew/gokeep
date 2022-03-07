@@ -58,7 +58,7 @@ func manageKey() {
 	case "Set":
 		setKeyPrompt()
 	case "Forget":
-		data.SetMasterKey("")
+		data.SetMK("")
 	}
 }
 
@@ -73,5 +73,5 @@ func setKeyPrompt() {
 		return
 	}
 
-	data.SetMasterKey(key)
+	data.SetMK(key)
 }

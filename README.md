@@ -38,7 +38,11 @@ You'll also be able to use the 1 command at the time (requiring your master keyw
 ## Todo 
 
 - [x] Be able to keep the app up and running
-- [ ] Encryption / Decryption 
+- [ ] Crypto
+  - [x] Encryption / Decryption
+  - [ ] Key management
 - [ ] Add handy flags to all commands (flags tbd)
-- [ ] Refactor cmd and their assiociated method
 - [ ] Static web GUI served on a localhost server
+- [ ] Refactoring 
+  - [ ] Refactor cmd and methods associated
+  - [ ] Refactor Error handling
