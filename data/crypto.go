@@ -114,18 +114,3 @@ func keyTo32byteArr(key string) ([]byte, error) {
 
 	return k, err
 }
-
-func Test() {
-	test, err := Encrypt("test", "test")
-	if err != nil {
-		fmt.Print(err.Error())
-	}
-
-	fmt.Println(test)
-
-	test, err = Decrypt(test, "test")
-	if err != nil {
-		fmt.Print(err.Error())
-	}
-	fmt.Println(test)
-}
