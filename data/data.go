@@ -34,7 +34,7 @@ func OpenDatabase() error {
 	return db.Ping()
 }
 
-func CreateCredsTable() {
+func CreateCredsTable() error {
 	createTableSQL := `CREATE TABLE IF NOT EXISTS credentials (
 		"id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 		"domain" TEXT,
@@ -51,6 +51,8 @@ func CreateCredsTable() {
 	statement.Exec()
 
 	log.Println("Credentials table created.")
+
+	return err
 }
 
 func InsertCred(domain, username, password string) {
@@ -175,8 +177,9 @@ func FindCredById(id int) Cred {
 func UpdateCred(id int, field string, value string) {
 	var err error
 
-	if field == "username" || field == "password" {
+	if field != "domain" {
 		value, err = Encrypt(value, GetMK())
+		fmt.Print(GetMK())
 		if err != nil {
 			fmt.Println(err.Error())
 		}

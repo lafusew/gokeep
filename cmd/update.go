@@ -17,7 +17,7 @@ import (
 var updateCmd = &cobra.Command{
 	Use:   "update",
 	Short: "Update a credentials record",
-	Long: `Update a credentials record`,
+	Long:  `Update a credentials record`,
 	Run: func(cmd *cobra.Command, args []string) {
 		updatePrompt()
 	},
@@ -28,7 +28,7 @@ func updatePrompt() {
 
 	err := TwoStepsSelect(
 		PromptContent{
-			Label: "Credentials to update: ",
+			Label:    "Credentials to update: ",
 			ErrorMsg: "Can't be empty",
 		},
 		&cred,
@@ -50,7 +50,7 @@ func updatePrompt() {
 	}
 
 	label := fmt.Sprintf("New value for %s: ", field)
-	value, err := PromptGetInput(PromptContent{ Label: label, ErrorMsg: "This can't be empty"})
+	value, err := PromptGetInput(PromptContent{Label: label, ErrorMsg: "This can't be empty"})
 
 	if err != nil {
 		log.Fatalln(err.Error())

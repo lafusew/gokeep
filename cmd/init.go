@@ -5,9 +5,10 @@ Copyright © 2022 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
-	"github.com/spf13/cobra"
+	"fmt"
 
 	"github.com/lafusew/gokeep/data"
+	"github.com/spf13/cobra"
 )
 
 // initCmd represents the init command
@@ -16,8 +17,38 @@ var initCmd = &cobra.Command{
 	Short: "Init a new credentials database and table",
 	Long:  `Init a new credentials database and table. WIP`,
 	Run: func(cmd *cobra.Command, args []string) {
-		data.CreateCredsTable()
+		initialize()
 	},
+}
+
+func initialize() {
+	err := data.CreateCredsTable()
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
+	// pc := PromptContent{
+	// 	Label:    "Set up a phrase that you can read. You'll later use this to be able to confirm that u entered the correct key",
+	// 	ErrorMsg: "This can't be empty (should be readable)",
+	// }
+
+	// key, err := PromptGetInput(pc)
+	// if err != nil {
+	// 	fmt.Println(err.Error())
+	// }
+
+	// bkey := []byte(key)
+	// f, err := os.Create("/data/key")
+	// if err != nil {
+	// 	fmt.Println(err.Error())
+	// }
+
+	// defer f.Close()
+
+	// err = os.WriteFile("/data/key", bkey, fs.FileMode(0644))
+	// if err != nil {
+	// 	fmt.Println(err.Error())
+	// }
 }
 
 func init() {

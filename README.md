@@ -41,6 +41,7 @@ You can also use the app without letting it open. But you'll have to enter your 
 - [x] Be able to keep the app up and running ⚙️
 - [ ] Crypto 🔐
   - [x] Encryption / Decryption 🔐
+    - [ ] Encryption error only on update to be fixed 
   - [ ] Key management 🔑
 - [ ] Add handy flags to all commands (flags tbd) ⛳️
 - [ ] Static web GUI served on a localhost server 💅

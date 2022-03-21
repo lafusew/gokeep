@@ -13,4 +13,3 @@ func main() {
 	data.OpenDatabase()
 	cmd.Execute()
 }
-

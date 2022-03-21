@@ -75,18 +75,20 @@ func Decrypt(str string, key string) (string, error){
 		log.Fatalln(err.Error())
 	}
 
+	
 	gcm, err := cipher.NewGCM(c)
 	if err != nil {
 		log.Fatalln(err.Error())
 	}
-
+	
+	
 	nonceSize := gcm.NonceSize()
 	if len(text) < nonceSize {
 		log.Fatalln(err.Error())
 	}
-
+	
 	nonce, encrypted := text[:nonceSize], text[nonceSize:]
-
+	
 	plaintext, err := gcm.Open(nil, nonce, encrypted, nil)
 	if err != nil {
 		log.Fatalln(err.Error())

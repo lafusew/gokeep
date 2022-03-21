@@ -16,7 +16,7 @@ import (
 var keyCmd = &cobra.Command{
 	Use:   "key",
 	Short: "Manage master password",
-	Long: `Manage master password`,
+	Long:  `Manage master password`,
 	Run: func(cmd *cobra.Command, args []string) {
 		manageKey()
 	},
@@ -64,7 +64,7 @@ func manageKey() {
 
 func setKeyPrompt() {
 	keyPromtContent := PromptContent{
-		Label: "Your key (1-32 characters): ",
+		Label:    "Your key (1-32 characters): ",
 		ErrorMsg: "Can't be empty",
 	}
 
