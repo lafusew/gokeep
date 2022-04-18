@@ -2,6 +2,10 @@
 
 Gokeep is a simple implementation of a CLI password manager, written in Go.
 
+## Gokeep is going to archive
+
+I started this projet to discover Go. Its been few months and I'm still using Go when I can, while learning it. I'm archiving this projet because I want to have something clean. I'll unarchive and rewrite this from scratch when I'll feel more confident with the understanding of the code that I write. 
+
 ## ⚠️ Warning ⚠️
 
 Currently the app isn't safe. pwds arent encrypted before storage. 
@@ -57,3 +61,6 @@ I don't know anything about security 🤕, so please don't use this application 
 Currently the sqlite db isn't protected at all. I'm just AES encrypting right before SQL Insert and decrypting right after SQL Select. 
 
 As it will be local only, I really don't know the required security level and good pratices for this kind of local application, if you do please create an issue and tell me. 🙏
+
+
+I know that nobody reads this readme but I do have fun writing/editing it. 
